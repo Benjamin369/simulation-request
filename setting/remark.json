@@ -1,0 +1,58 @@
+{
+  "配置规范":{
+    "说明":"现阶段只支持post和get请求的操作，支持请求参数的非空操作，自动返回参数只支持随机字符，日期，对象，数组和数字",
+    "文件说明": "/setting/* 该目录下的posUrl.js与getUrl.js文件分别对应get及post请求设置",
+    "文件配置说明":{
+      "url名":{
+        "params/请求参数":{
+          "自定义请求参数1":{
+            "type": "参数类型，暂时只支持string（即字符）类型",
+            "canNull": "是否可以为空，布尔类型（true/false）"
+          },
+          "自定义请求参数2":{
+            "type": "参数类型，暂时只支持string（即字符）类型",
+            "canNull": "是否可以为空，布尔类型（true/false）"
+          }
+        },
+
+        "return/返回参数设置":{
+          "type": "obj，返回类型，obj/对象，string/字符，number/数字，list/数组，date/日期",
+          "content/配置内容，根据type配置，详见后续配置": {
+            "自定义参数1":{
+              "type":"obj，类型",
+              "content/配置内容":{
+                "自定义参数": {
+                  "type": "string，类型",
+                  "canNull": "是否可以为空，布尔类型（true/false）",
+                  "per": "10，可以为空该配置生效，数字类型，代表为空的概率，百分制，若小于0，则为不为空，大于100，则必为空，若不填，则代表该字段不为空"
+                }
+              }
+            },
+            "自定义参数2": {
+              "type": "list，类型",
+              "number": "10，这边数字该数字里面一共代表多少条数据",
+              "content/配置内容即改数组内的内容": {
+                "id":{
+                  "type": "string，类型",
+                  "canNull": false
+                },
+                "age": {
+                  "type": "number，数字类型",
+                  "canNull": true,
+                  "per": 10,
+                  "max": "最大值",
+                  "min": "最小值"
+                },
+                "birthday": {
+                  "type": "date，日期类型",
+                  "canNull": true,
+                  "form": "YYYY-MM-DD hh:mm:ss  日期格式，依次是年月日，时分秒"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
