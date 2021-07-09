@@ -31,31 +31,21 @@ request.prototype.checkToken = function(header, info) {
 // 检查params
 request.prototype.checkparams = function(params, info) {
     let paramsRule = info.params
-    for (let key in paramsRule) {
-        if (paramsRule[key].required && !params[key]) {
-            return "params:[ " + key + ' ] 不能为空'
-        }
-        if (params[key]){
-            let value = params[key]
-            if (typeof value!=paramsRule[key].type) {
-                return "params:[ " + key + ' ] 应为 '+ paramsRule[key].type
-            }
-        }
+    try {
+        parameter(params, paramsRule, 'get')
+        return null
+    } catch (error) {
+        return error
     }
 },
 // 检查bogy
 request.prototype.checkBody = function(body, info) {
     let bodyRule = info.body
-    for (let key in bodyRule) {
-        if (bodyRule[key].required && !body[key]) {
-            return "body:[ " + key + ' ] 不能为空'
-        }
-        if (body[key]){
-            let value = body[key]
-            if (typeof value!=bodyRule[key].type) {
-                return "body:[ " + key + ' ] 应为 '+ bodyRule[key].type
-            }
-        }
+    try {
+        parameter(body, bodyRule, 'post')
+        return null
+    } catch (error) {
+        return error
     }
 }
 request.prototype.getErrorReturn = function(message) {
@@ -74,5 +64,27 @@ request.prototype.getErrorReturn = function(message) {
         }
     }
     return returnObj
+}
+function parameter (body, rules, type) {
+    for (let key in rules) {
+        if (rules[key].required && !body[key]) {
+            throw type + ":[ " + key + ' ] 不能为空'
+        }
+        if (body[key]){
+            // console.log(JSON.stringify(body))
+            let value = body[key]
+            if (rules[key].type === 'object') {
+                if (typeof value === 'object') {
+                    parameter(value, body[key].content,type)
+                } else {
+                    throw type + ":[ " + key + ' ] 应为对象'
+                }
+            } else {
+                if (typeof value!=rules[key].type) {
+                    throw type + ":[ " + key + ' ] 应为 '+ rules[key].type
+                }
+            }
+        }
+    }
 }
 module.exports = new request();

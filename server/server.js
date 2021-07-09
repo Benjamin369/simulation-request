@@ -38,5 +38,6 @@ function doUrl (req, res, type) {
         res.json(returnInfo)
         return
     }
+    res.end('')
 }
 const server = app.listen(3000)
