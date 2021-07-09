@@ -1,1 +1,21 @@
-[]
+[
+    {
+        "url":"/test/test",
+        "type":"get",
+        "skipToken": false,
+        "token": "token1",
+        "params":{
+            "key1": {
+                "type": "string",
+                "required": false
+            },
+            "key2": {
+                "type": "string",
+                "required": true
+            },
+            "key3": {
+                "type": "number"
+            }
+        }
+    }
+]
