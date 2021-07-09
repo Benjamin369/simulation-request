@@ -2,7 +2,7 @@ let urlData = require('../data/data.json');
 let baseData = require('../data/base.json');
 function request(){}
 // 检查该url配置是否存在
-request.prototype.cheakUrl = function(url, type) {
+request.prototype.checkUrl = function(url, type) {
     let infoArray = urlData.find(function(e) {
         return e.url === url && e.type === type;
     })
@@ -15,7 +15,7 @@ request.prototype.cheakUrl = function(url, type) {
     }
 }
 // 检查Token
-request.prototype.cheakToken = function(header, info) {
+request.prototype.checkToken = function(header, info) {
     if (info.skipToken) {
         return true
     }
@@ -29,11 +29,32 @@ request.prototype.cheakToken = function(header, info) {
     return false
 },
 // 检查params
-request.prototype.cheakparams = function(params, info) {
+request.prototype.checkparams = function(params, info) {
     let paramsRule = info.params
     for (let key in paramsRule) {
         if (paramsRule[key].required && !params[key]) {
-            return "[ " + key + ' ] 不能为空'
+            return "params:[ " + key + ' ] 不能为空'
+        }
+        if (params[key]){
+            let value = params[key]
+            if (typeof value!=paramsRule[key].type) {
+                return "params:[ " + key + ' ] 应为 '+ paramsRule[key].type
+            }
+        }
+    }
+},
+// 检查bogy
+request.prototype.checkBody = function(body, info) {
+    let bodyRule = info.body
+    for (let key in bodyRule) {
+        if (bodyRule[key].required && !body[key]) {
+            return "body:[ " + key + ' ] 不能为空'
+        }
+        if (body[key]){
+            let value = body[key]
+            if (typeof value!=bodyRule[key].type) {
+                return "body:[ " + key + ' ] 应为 '+ bodyRule[key].type
+            }
         }
     }
 }

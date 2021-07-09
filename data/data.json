@@ -1,7 +1,7 @@
 [
     {
         "url":"/test/test",
-        "type":"get",
+        "type":"post",
         "skipToken": false,
         "token": "token1",
         "params":{
@@ -11,6 +11,19 @@
             },
             "key2": {
                 "type": "string",
+                "required": false
+            },
+            "key3": {
+                "type": "number"
+            }
+        },
+        "body":{
+            "key1": {
+                "type": "string",
+                "required": true
+            },
+            "key2": {
+                "type": "object",
                 "required": true
             },
             "key3": {

@@ -8,27 +8,35 @@ app.post('/*', (req, res) => {
 })
 function doUrl (req, res, type) {
     // 地址URL
-    console.log('req', req)
     let url = req._parsedUrl.pathname
-    let urlInfo = request.cheakUrl(url, type)
+    let urlInfo = request.checkUrl(url, type)
     if (!urlInfo.url){
         res.status(404)
         res.end('')
         return
     }
     let header = req.headers
-    if (!request.cheakToken(header, urlInfo)) {
+    if (!request.checkToken(header, urlInfo)) {
         res.status(401)
         res.end('')
         return
     }
-    let params = req.query
-    let returnMessage = request.cheakparams(params, urlInfo)
     res.status(200)
+    let returnMessage = null
     let returnInfo = null
+    let params = req.query
+    returnMessage = request.checkparams(params, urlInfo)
     if (returnMessage) {
         returnInfo = request.getErrorReturn(returnMessage)
+        res.json(returnInfo)
+        return
     }
-    res.json(returnInfo)
+    let body = req.body
+    returnMessage = request.checkBody(body, urlInfo)
+    if (returnMessage) {
+        returnInfo = request.getErrorReturn(returnMessage)
+        res.json(returnInfo)
+        return
+    }
 }
 const server = app.listen(3000)
