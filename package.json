@@ -1,19 +1,17 @@
 {
-  "name": "mockapi",
-  "version": "1.0.0",
+  "name": "simulation-request",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node-dev ./server-api/server.js"
+    "dev": "node-dev ./server/server.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "node-dev": "^6.4.0"
+    "express": "^4.17.1",
+    "node-dev": "^7.0.0"
   }
 }

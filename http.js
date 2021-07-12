@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+app.use(express.urlencoded({extended: true}));
 // 设置跨域
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')

@@ -1,0 +1,23 @@
+{
+    "serverPort": 3000,
+    "serverPort_remark":"服务端口号",
+    "defaultToken": "",
+    "defaultToken_remark":"默认token，若url中未配置token且未跳过token，就使用这个token",
+    "returnObj": {
+        "status": {
+            "type": "requestStatus",
+            "normal": 1,
+            "error": 2
+        },
+        "obj":{
+            "type": "returnObj",
+            "default": {},
+            "error": null
+        },
+        "message": {
+            "type": "message",
+            "default": "请求成功",
+            "error": "请求失败"
+        }
+    }
+}
