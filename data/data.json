@@ -29,6 +29,54 @@
             "key3": {
                 "type": "number"
             }
+        },
+        "returnObj": {
+            "type": "obj",
+            "content": {
+                "obj1": {
+                    "type": "obj",
+                    "content": {
+                        "key1": {
+                            "type": "string",
+                            "canNull": false
+                        },
+                        "key2": {
+                            "type": "string",
+                            "canNull": true,
+                            "per": 10
+                        }
+                    }
+                },
+                "obj2": {
+                    "type": "list",
+                    "number": 10,
+                    "content": {
+                        "id": {
+                            "type": "string",
+                            "canNull": false
+                        },
+                        "name": {
+                            "type": "string",
+                            "canNull": false
+                        },
+                        "age": {
+                            "type": "number",
+                            "canNull": true,
+                            "per": 10,
+                            "max": 100,
+                            "min": 10
+                        },
+                        "birthday": {
+                            "type": "date",
+                            "canNull": true,
+                            "form": "YYYY-MM-DD hh:mm:ss",
+                            "per": 10,
+                            "max": 100,
+                            "min": 10
+                        }
+                    }
+                }
+            }
         }
     }
 ]

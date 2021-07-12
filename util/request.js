@@ -48,7 +48,7 @@ request.prototype.checkBody = function(body, info) {
         return error
     }
 }
-request.prototype.getErrorReturn = function(message) {
+request.prototype.getErrorReturn = function(obj, message) {
     let returnObj = {}
     let returnObjRuls = baseData.returnObj
     for (let key in returnObjRuls) {
@@ -57,7 +57,24 @@ request.prototype.getErrorReturn = function(message) {
             returnObj[key] = row.error
         }
         if (row.type === 'returnObj') {
-            returnObj[key] = row.default
+            returnObj[key] = obj || row.error
+        }
+        if (row.type === 'message') {
+            returnObj[key] = message || row.error
+        }
+    }
+    return returnObj
+}
+request.prototype.getNormalReturn = function(obj, message) {
+    let returnObj = {}
+    let returnObjRuls = baseData.returnObj
+    for (let key in returnObjRuls) {
+        let row = returnObjRuls[key]
+        if (row.type === 'requestStatus') {
+            returnObj[key] = row.normal
+        }
+        if (row.type === 'returnObj') {
+            returnObj[key] = obj || row.default
         }
         if (row.type === 'message') {
             returnObj[key] = message || row.default

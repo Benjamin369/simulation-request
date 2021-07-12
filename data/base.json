@@ -11,11 +11,13 @@
         },
         "obj":{
             "type": "returnObj",
-            "default": {}
+            "default": {},
+            "error": null
         },
         "message": {
             "type": "message",
-            "default": "请求成功"
+            "default": "请求成功",
+            "error": "请求失败"
         }
     }
 }

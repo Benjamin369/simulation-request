@@ -1,4 +1,5 @@
 const request = require('../util/request')
+const result = require('../util/result')
 const app = require('./http')
 app.get('/*', (req, res) => {
     doUrl(req, res, 'get')
@@ -27,17 +28,19 @@ function doUrl (req, res, type) {
     let params = req.query
     returnMessage = request.checkparams(params, urlInfo)
     if (returnMessage) {
-        returnInfo = request.getErrorReturn(returnMessage)
+        returnInfo = request.getErrorReturn(null, returnMessage)
         res.json(returnInfo)
         return
     }
     let body = req.body
     returnMessage = request.checkBody(body, urlInfo)
     if (returnMessage) {
-        returnInfo = request.getErrorReturn(returnMessage)
+        returnInfo = request.getErrorReturn(null, returnMessage)
         res.json(returnInfo)
         return
     }
-    res.end('')
+    let returnObj = result.getResult(urlInfo)
+    returnInfo = request.getNormalReturn(returnObj)
+    res.json(returnInfo)
 }
 const server = app.listen(3000)
